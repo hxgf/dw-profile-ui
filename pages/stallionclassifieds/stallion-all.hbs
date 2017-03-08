@@ -1,0 +1,42 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    {{#if featured}}
+    <h4>Featured Stallions</h4>
+    <!-- // want to get a featured ad? -->
+    {{else}}
+      {{#if search}}
+        <form class="search" action="/stallions/">
+          <input type="text" name="k" value="{{keyword}}" />
+          <button>Search</button>
+        </form>
+        <!-- // future search prefs (within x miles of zip code, etc) -->
+        <!-- // future <p class="search-results-title">{{results_total}} results found for <span>{{keyword}}</span></p> -->
+      {{/if}}
+    {{/if}}
+
+
+    {{#if all_mine}}
+      {{#unless ranch.title}}
+      <div class="callout panel">
+        <h5>Ranch Profile</h5>
+        <p>Show off all your stallions in one place with a photo and custom information about your ranch. <br /><a href="/edit-ranch/{{ranch._id}}">Create your profile now!</a></p>
+      </div>
+      {{/unless}}
+    {{/if}}
+
+    {{#if stallions_list}}
+    {{> search_results_list}}
+    {{else}}
+      <h4 class="no-results">No stallions found.</h4>
+      <!-- // want to post one? -->
+    {{/if}}
+
+  </div>
+  <div class="medium-2 columns sidebar">
+
+    {{> ads}}
+
+  </div>
+</div>

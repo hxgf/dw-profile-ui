@@ -1,0 +1,50 @@
+
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    <form class="search">
+      <input />
+      <button>Search</button>
+      <!-- future advanced search controls -->
+    </form>
+
+
+
+
+
+    {{#if profiles}}
+    <ul class="profiles-list-people small-block-grid-2">
+      {{#each profiles}}
+      <li>
+        <div class="profile-block">
+          <a href="/people/{{url_title}}"><img src="{{avatar.medium}}" /></a>
+          <span class="data">
+            <h3><a href="/people/{{url_title}}">{{screenname}}</a></h3>
+            <h4>{{address}}</h4>
+            <h5>{{#each neighborhoods_list}}{{#unless first}}, {{/unless}}<a href="/neighborhoods/{{url_title}}">{{title}}</a>{{/each}} &nbsp;</h5>
+            <h5>{{#each tags_list}}{{#unless first}}, {{/unless}}<a href="/tags/{{url_title}}">{{title}}</a>{{/each}}</h5>
+          </span>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+    <div class="no-results">
+      No profiles :(
+    </div>
+    {{/if}}
+
+
+    
+    <div class="pagination">
+    {{#if paginate.previous}}<a href="/feed/{{paginate.previous_query}}">&larr; Previous page</a>{{/if}}
+    {{#if paginate.next}}<a href="/feed/{{paginate.next_query}}">Next page &rarr;</a>{{/if}}
+    </div>
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> sidebar}}
+  </div>
+</div>
+

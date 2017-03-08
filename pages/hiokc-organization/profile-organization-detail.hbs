@@ -1,0 +1,70 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    <div class="profile-organization-head">
+      <div></div> <!-- {{#if bg_img}}style="background-image: url('{{bg_img}}');"{{/if}} -->
+      <img class="photo" src="{{data.photo.medium}}" />
+
+      <h2 class="f-headline 6rem">{{data.title}}
+
+        {{#if can_edit}} <small><a href="/profile/edit/{{data._id}}">(edit)</a></small>{{/if}}</h2>
+      <h3>{{data.address}}</h3>
+      <h3>{{data.city}}, {{data.state}} &nbsp; {{data.zip}}</h3>
+      <h4>{{data.phone}}</h4>
+
+        <h5>{{#each data.neighborhoods_list}}{{#unless first}}, {{/unless}}<a href="/neighborhoods/{{url_title}}">{{title}}</a>{{/each}} &nbsp;</h5>
+        <h5>{{#each data.tags_list}}{{#unless first}}, {{/unless}}<a href="/tags/{{url_title}}">{{title}}</a>{{/each}}</h5>
+
+
+        {{#if can_edit}} <!-- fixit don't offer to send a message to yourself -->
+        <div class="spacer"></div>
+        {{else}}
+        <div class="send-message">
+          <button id="message-link" class="icon-link"><i class="fi-mail"></i> Send Message</button>
+          <div class="message-reply">
+
+            {{#if auth}}
+            <textarea id="message_content" name="message" class="reply"></textarea>
+            <button id="message-send" data-recipient-profile="{{data._id}}" class="send">Send</button>
+            {{else}}
+              <div class="prompt">
+                Accounts are required to send messages. <a href="/login">Login here</a> if you're already registered. Otherwise, you can <a href="/register">sign up here</a> if you're not. <i>(It's really simple and it only takes a few seconds)</i>
+              </div>
+            {{/if}}
+
+          </div>
+          <div class="message-sent"></div>
+        </div>
+        {{/if}}
+
+
+      <!-- <button>follow or whatever</button> -->
+    </div>
+
+    <!-- // type-specific content submenu
+      hours
+      map/directions
+        <a href="http://maps.google.com/maps?f=q&hl=en&q=<?=$map_url?>" target="_blank">[ Map / Driving Directions ]</a>
+      gallery
+      menus
+      songs
+      videos
+      ratings
+      discussion? -->
+
+
+    <div class="profile-organization-bio">
+      {{{nl2br data.bio}}}
+    </div>
+
+
+	{{> comment-list}}
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> sidebar}}
+  </div>
+</div>
+

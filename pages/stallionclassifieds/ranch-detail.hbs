@@ -1,0 +1,96 @@
+
+
+
+
+<div class="row">
+  <div class="medium-10 columns content-focus ranch-detail">
+
+
+  {{#if data.title}}
+
+
+    <div class="row ranch-header">
+
+      <div class="medium-8 columns contact-info">
+        <h2>{{data.title}}
+          {{#if can_edit_admin}}
+          <small><a href="/edit-ranch/{{data._id}}">Edit Profile</a></small>
+          {{else}}
+            {{#if can_edit}}<small><a href="/edit-ranch/{{data._id}}">Edit Profile</a></small>{{/if}}
+          {{/if}}
+        </h2>
+        {{#if data.address}}
+        <h4>
+          {{data.address}}<br />
+          {{data.city}}, {{data.state}}, &nbsp;{{data.zip}}
+          <!-- <small><a href="#">(map)</a></small> -->
+        </h4>
+        {{/if}}
+        {{#if data.phone}}<h5>{{data.phone}}</h5>{{/if}}
+        {{#if data.website_url}}<h5><a href="{{data.website_url}}">{{data.website_url}}</a></h5>{{/if}}
+
+
+        {{#if can_edit}}
+        <div class="spacer"></div>
+        {{else}}
+        <div class="send-message">
+          <button id="message-link" class="icon-link"><i class="fi-mail"></i> Send Message</button>
+          <div class="message-reply">
+
+            {{#if global.auth_token}}
+            <textarea name="message" class="reply"></textarea>
+            <button id="message-send" data-recipient="{{data.user_id}}" class="send">Send</button>
+            {{else}}
+              <div class="prompt">
+                Accounts are required to send messages. <a href="/login">Login here</a> if you're already registered. Otherwise, you can <a href="/register">sign up here</a> if you're not. <i>(It's really simple and it only takes a few seconds)</i>
+              </div>
+            {{/if}}
+
+          </div>
+          <div class="message-sent"></div>
+        </div>
+        {{/if}}
+
+
+
+        <div class="description">
+          {{{nl2br data.description}}}
+        </div>
+
+
+
+      </div>
+
+
+      <div class="medium-4 columns">
+        <img  class="profile-photo" src="{{data.photo.medium}}" />
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    {{#if stallions_list}}
+
+    <h4>Available stallions from {{data.title}}:</h4>
+
+    {{> search_results_list}}
+
+    {{/if}}
+
+
+
+  {{/if}} <!-- /if data.title-->
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+    <!-- // if owner, "don't want ads on your page? GO PRO!" (link to upgrades) -->
+
+  </div>
+</div>

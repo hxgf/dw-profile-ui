@@ -1,0 +1,63 @@
+
+
+
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    <div class="header-stallion-upgrade">
+      <h3>Upgrade Stallion Listing</h3>
+    </div>
+
+    <form class="stallion-upgrade" action="/checkout/prepare" method="post">
+
+      <ul class="upgrades-list">
+        <li>
+          <label>
+            <input type="checkbox" name="upgrades[]" value="gallery" />
+            <span class="data">
+              <span class="title">Photo Gallery - $10</span>
+              <span class="details">Gallery of up to six pictures</span>
+            </span>
+          </label>
+        </li>
+
+        <li>
+          <label>
+            <input type="checkbox" name="upgrades[]" value="videos" />
+            <span class="data">
+              <span class="title">Videos - $5</span>
+              <span class="details">Up to four embedded videos from Vimeo or YouTube</span>
+            </span>
+          </label>
+        </li>
+        {{#unless data.featured_date_expires}}
+        <li>
+          <label>
+            <input type="checkbox" name="upgrades[]" value="featured" />
+            <span class="data">
+              <span class="title">Featured Listing - $90</span>
+              <span class="details">Show off your listing on the front page and site sidebar as one of our featured stallions for 90 days.</span>
+            </span>
+          </label>
+        </li>
+        {{/unless}}
+
+      </ul>
+
+      <input type="hidden" name="type" value="stallion-upgrade" />
+      <input type="hidden" name="listing_id" value="{{listing_id}}" />
+      <button>Upgrade</button>
+      <!-- // redirect to checkout -->
+
+    </form>
+
+
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+
+  </div>
+</div>

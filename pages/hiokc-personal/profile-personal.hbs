@@ -1,0 +1,61 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    <img src="{{data.avatar.medium}}" />
+    <div>
+      <h2>{{data.screenname}} {{#if can_edit}} <a href="/settings">(edit)</a>{{/if}}</h2>
+<!--       neighborhood -->
+
+        {{#if can_edit}} <!-- fixit don't offer to send a message to yourself -->
+        <div class="spacer"></div>
+        {{else}}
+        <div class="send-message">
+          <button id="message-link" class="icon-link"><i class="fi-mail"></i> Send Message</button>
+          <div class="message-reply">
+
+            {{#if auth}}
+            <textarea id="message_content" name="message" class="reply"></textarea>
+            <button id="message-send" data-recipient-user="{{data._id}}" class="send">Send</button>
+            {{else}}
+              <div class="prompt">
+                Accounts are required to send messages. <a href="/login">Login here</a> if you're already registered. Otherwise, you can <a href="/register">sign up here</a> if you're not. <i>(It's really simple and it only takes a few seconds)</i>
+              </div>
+            {{/if}}
+
+          </div>
+          <div class="message-sent"></div>
+        </div>
+        {{/if}}
+
+
+
+      <button>follow / friend</button>
+    </div>
+
+<!-- this is different from the way we're doing it elsewhere idk why this shit is fucked up -->
+        <h5>{{#each neighborhoods_list}}{{#unless first}}, {{/unless}}<a href="/neighborhoods/{{url_title}}">{{title}}</a>{{/each}} &nbsp;</h5>
+        <h5>{{#each tags_list}}{{#unless first}}, {{/unless}}<a href="/tags/{{url_title}}">{{title}}</a>{{/each}}</h5>
+
+
+    <!-- ??
+      things (content) i've posted
+      my business (or other profiles)
+      my groups -->
+
+    <div>
+      bio
+    </div>
+
+    <div>
+      gallery
+    </div>
+
+	{{> comment-list}}
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> sidebar}}
+  </div>
+</div>
+

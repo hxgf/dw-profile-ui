@@ -1,0 +1,445 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+  	<form class="edit-form edit-stallion" action="/edit-listing/{{data._id}}/process" method="post">
+
+
+
+      <div class="row">
+
+        <div class="large-6 medium-6 columns">
+
+
+          <div class="validate-stallion validate">
+            <label>Stallion Name <small>* required</small></label>
+            <input type="text" name="horse_name" data-type="stallion" data-id="{{data._id}}" value="{{data.horse_name}}" />
+            <span>* Stallion is already listed</span>
+          </div>
+
+          <label>Breed <small>* required</small></label>
+          <select name="breed_primary">
+            <option value=""></option>
+            {{#each breeds}}
+            <option value="{{this}}" {{#ifCond this ../data.breed_primary}}selected{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          </select>
+
+          <label>Foal Date <small>* required</small></label> <!-- fixit format -->
+          <input type="text" name="foal_date" placeholder="MM/DD/YYYY" value="{{format_date_edit data.foal_date}}" />
+
+          {{#if global.colors}}
+          <label>Color</label>
+          <select name="color">
+            <option value=""></option>
+            {{#each colors}}
+            <option value="{{this}}" {{#ifCond this ../data.color}}selected{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
+
+
+
+        <div class="large-6 medium-6 columns">
+
+          <div class="upload-container-thumb">
+
+            {{#if data.photo.medium}}
+            <img src="{{data.photo.medium}}" />
+            {{else}}
+            <div class="placeholder">
+            </div>
+            {{/if}}
+
+            <div class="control">
+              <!--[if lte IE 8]>
+              <button disabled>Upload Photo</button><br /><br />
+              <small>* Your browser doesn't support photo uploads. Please upgrade your browser to the latest version of Internet Explorer. Firefox and Google Chrome are also supported.</small>
+              <![endif]-->
+
+              <!--[if !lte IE 8]><!-->
+              <a class="thumb-upload-button"><i class="fi-plus"></i> New Photo</a>
+              <a class="crop-button" href="#crop-image"><i class="fi-crop"></i> Crop Thumbnail</a>
+              <!--<![endif]-->
+            </div>
+
+            <div class="thumb-upload-success">New photo added successfully.
+              <br /><br />
+              <small>* Some images take longer to process than others. Don't be alarmed if your changes aren't reflected immediately. Most photos are processed in less than one minute.</small><br /><br />
+            </div>
+            <div class="thumb-upload">
+              <div class="dropzone" id="dropzone"></div>
+              <div class="upload-instructions">* Large images work best (over 500px wide)</div>
+              <img id="upload_button" src="/images/blank.gif" />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+        <div class="row">
+
+          <div class="large-3 columns">
+            <label>Stud Fee</label>
+            <input type="text" name="stud_fee" value="{{data.stud_fee}}" />
+          </div>
+
+          <div class="large-3 columns">
+            <label>Booking Fee</label>
+            <input type="text" name="booking_fee" value="{{data.booking_fee}}" />
+          </div>
+
+          <div class="large-3 columns">
+            <label>Availabile From</label> <!-- fixit format -->
+            <input type="text" name="availability_start" placeholder="MM/DD/YYYY" value="{{format_date_edit data.availability_start}}" />
+          </div>
+
+          <div class="large-3 columns">
+            <label>To</label> <!-- fixit format -->
+            <input type="text" name="availability_stop" placeholder="MM/DD/YYYY" value="{{format_date_edit data.availability_stop}}" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <label><input type="checkbox" name="booking_included" value="true" {{#if data.booking_included}}checked="checked"{{/if}} /> <span>Stud fee includes booking fee</span></label>
+          </div>
+        </div>
+
+
+
+<!--
+  tag line ->
+    horse name - foal date (year) - breed
+
+  current tagline goes above description (sub-heading)
+
+  owner info
+  standing
+
+
+-->
+
+<!--
+      <div class="row">
+
+        <div class="large-6 columns">
+
+
+
+        </div>
+
+        <div class="large-6 columns">
+
+          <label>Secondary Breed</label>
+          <select name="breed_secondary">
+            <option value=""></option>
+            {{#each breeds}}
+            <option value="{{this}}" {{#ifCond this ../data.breed_secondary}}selected{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          </select>
+
+        </div>
+
+      </div> -->
+
+
+
+
+
+<!--
+      <div class="row">
+
+        <div class="large-6 columns">
+
+&nbsp;
+
+        </div>
+
+        <div class="large-6 columns">
+
+          <label>Homozygous Color</label>
+          <select name="homozygous_color">
+            <option value=""></option>
+            {{#each h_colors}}
+            <option value="{{this}}" {{#ifCond this ../data.homozygous_color}}selected{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          </select>
+
+        </div>
+
+      </div>
+-->
+
+
+
+
+
+
+
+      <div class="row">
+
+        <div class="large-4 columns">
+          <label>City</label>
+          <input type="text" name="city" value="{{data.city}}" />
+        </div>
+
+        <div class="large-2 columns">
+          <label>State <small>/ Province</small></label>
+          <input type="text" name="state" maxlength="2" value="{{data.state}}" />
+        </div>
+
+        <div class="large-3 columns">
+          <label>Zip</label>
+          <input type="text" name="zip" value="{{data.zip}}" />
+        </div>
+
+        <div class="large-3 columns">
+          <label>Country</label>
+
+          <select name="country">
+            <option value=""></option>
+            {{#each countries}}
+            <option value="{{this}}" {{#ifCond this ../data.country}}selected{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+      </div>
+
+
+
+
+
+      <div class="row">
+
+        <div class="large-3 columns">
+
+          <label>Height <small>hh</small></label>
+          <input type="text" name="height" value="{{data.height}}" />
+
+        </div>
+
+        <div class="large-3 columns">
+
+          <label>Weight <small>lbs</small></label>
+          <input type="text" name="weight" value="{{data.weight}}" />
+
+        </div>
+
+        <div class="large-4 columns">
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+      <div class="row">
+
+
+
+        <div class="large-3 columns">
+          <label>Guarantees</label>
+          <div class="checkbox-list">
+            <label><input type="checkbox" name="guarantees[]" value="LFG" {{#in_array data.guarantees "LFG"}}checked="checked"{{/in_array}} /> <span>LFG</span></label><br />
+            <label><input type="checkbox" name="guarantees[]" value="LCFG" {{#in_array data.guarantees "LCFG"}}checked="checked"{{/in_array}} /> <span>LCFG</span></label>
+          </div>
+        </div>
+
+        <div class="large-9 columns">
+
+          <label>Breeding Options</label>
+          <div class="checkbox-list">
+            <label><input type="checkbox" name="breeding_options[]" value="Artificial Insemination" {{#in_array data.breeding_options "Artificial Insemination"}}checked="checked"{{/in_array}} /> <span>Artificial Insemination</span></label>
+            <label><input type="checkbox" name="breeding_options[]" value="Live Cover" {{#in_array data.breeding_options "Live Cover"}}checked="checked"{{/in_array}} /> <span>Live Cover</span></label>
+            <label><input type="checkbox" name="breeding_options[]" value="Multiple Cover Discount" {{#in_array data.breeding_options "Multiple Cover Discount"}}checked="checked"{{/in_array}} /> <span>Multiple Cover Discount</span></label>
+            <label><input type="checkbox" name="breeding_options[]" value="Transported Cooled Semen" {{#in_array data.breeding_options "Transported Cooled Semen"}}checked="checked"{{/in_array}} /> <span>Transported Cooled Semen</span></label>
+            <label><input type="checkbox" name="breeding_options[]" value="Transported Frozen Semen" {{#in_array data.breeding_options "Transported Frozen Semen"}}checked="checked"{{/in_array}} /> <span>Transported Frozen Semen</span></label>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <!-- future -->
+  		<!-- // associations (limit __)(title, reg#) -->
+  		<!-- // disciplines? -->
+      <!-- don't need all this location info? -->
+  		<!-- <label>Standing Location</label>
+  		<input type="text" name="" value="" />
+			<label>Address</label>
+  		<input type="text" name="" value="" /> -->
+      <!-- <label><input type="checkbox" name="" value="" /> <span>Show location on map</span></label> -->
+      <!-- explanation of why you want to include location (better search results visibility) -->
+
+
+
+
+
+      <div class="row">
+
+        <div class="large-6 columns">
+          <label>Tag Line <small>shown on listing before description</small></label>
+          <input type="text" name="tag_line" value="{{data.tag_line}}" />
+        </div>
+        <div class="large-6 columns">
+&nbsp;
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="large-12 columns">
+
+          <label>Description</label>
+          <textarea class="description" name="description">{{data.description}}</textarea>
+
+
+
+          <label>Pedigree</label>
+        	<table cellspacing="0" cellpadding="0" id="pedigree-edit">
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td></td>
+        	    <td class="sire"> <div class="ped-th"><label for="sire_4">Sire</label> <input name="sire_4" type="text" value="{{data.pedigree.sire_4}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td class="sire v"> <div class="ped-th"><label for="sire_2">Sire</label> <input name="sire_2" type="text" value="{{data.pedigree.sire_2}}" /></div></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td class="v"></td>
+        	    <td class="dam"> <div class="ped-th"><label for="dam_4">Dam</label> <input name="dam_4" type="text" value="{{data.pedigree.dam_4}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="sire v"> <div class="ped-th"><label for="sire_1">Sire</label> <input name="sire_1" type="text" value="{{data.pedigree.sire_1}}" /></div></td>
+        	    <td></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td></td>
+        	    <td class="sire"> <div class="ped-th"><label for="sire_5">Sire</label> <input name="sire_5" type="text" value="{{data.pedigree.sire_5}}" /></div>
+        	    </td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td class="dam v"> <div class="ped-th"><label for="dam_2">Dam</label> <input name="dam_2" type="text" value="{{data.pedigree.dam_2}}" /></div></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td class="v"></td>
+        	    <td class="dam"> <div class="ped-th"><label for="dam_5">Dam</label> <input name="dam_5" type="text" value="{{data.pedigree.dam_5}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td colspan="3">&nbsp;</td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td></td>
+        	    <td class="sire"> <div class="ped-th"><label for="sire_6">Sire</label> <input name="sire_6" type="text" value="{{data.pedigree.sire_6}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td class="sire v"> <div class="ped-th"><label for="sire_3">Sire</label> <input name="sire_3" type="text" value="{{data.pedigree.sire_3}}" /></div></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td class="v"></td>
+        	    <td class="dam"> <div class="ped-th"><label for="dam_6">Dam</label> <input name="dam_6" type="text" value="{{data.pedigree.dam_6}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="dam v"> <div class="ped-th"><label for="dam_1">Dam</label> <input name="dam_1" type="text" value="{{data.pedigree.dam_1}}" /></div></td>
+        	    <td></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td></td>
+        	    <td class="sire"> <div class="ped-th"><label for="sire_7">Name</label> <input name="sire_7" type="text" value="{{data.pedigree.sire_7}}" /></div></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td class="v"></td>
+        	    <td class="dam v"> <div class="ped-th"><label for="dam_3">Name</label> <input name="dam_3" type="text" value="{{data.pedigree.dam_3}}" /></div></td>
+        	    <td></td>
+        		</tr>
+
+        		<tr valign="top">
+        	    <td></td>
+        	    <td class="v"></td>
+        	    <td class="dam"> <div class="ped-th"><label for="dam_7">Name</label> <input name="dam_7" type="text" value="{{data.pedigree.dam_7}}" /></div></td>
+        		</tr>
+        	</table>
+
+
+
+<!--
+          {{#if data.gallery_total}}
+            gallery: {{data.gallery_total}}
+          {{/if}}
+
+          {{#if data.videos_total}}
+            videos: {{data.videos_total}}
+          {{/if}}
+          <br /><br /> -->
+
+          <!-- // upload gallery photos v2? -->
+          <!-- // add video links v2? -->
+
+          <button>Save</button>
+
+        </div>
+
+      </div>
+
+
+  	</form>
+
+
+
+
+
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+
+
+    <!-- <a href="/upgrade/{{data._id}}">upgrade your listing</a><br /><br /> -->
+
+  	<!-- // link to /stallion-upgrade (show more things you can do to spice up your ad) -->
+
+    {{> ads}}
+
+  </div>
+</div>

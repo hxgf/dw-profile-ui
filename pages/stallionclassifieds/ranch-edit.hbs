@@ -1,0 +1,110 @@
+
+
+
+
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+  	<form class="edit-form edit-ranch" action="/edit-ranch/{{data._id}}/process" method="post">
+
+      <div class="row">
+        <div class="large-6 columns">
+
+          <div class="validate-ranch validate">
+            <label>Ranch Name</label>
+            <input type="text" name="title" data-type="ranch" data-id="{{data._id}}" value="{{data.title}}" />
+            <span>* This ranch is already listed.</span>
+          </div>
+
+          <label>Website URL</label>
+          <input type="text" name="website_url" value="{{data.website_url}}" />
+
+            <label>Phone</label>
+            <input type="text" name="phone" value="{{data.phone}}" />
+
+            <label>Address</label>
+            <input type="text" name="address" value="{{data.address}}" />
+
+
+          <div class="row">
+
+            <div class="large-5 columns">
+              <label>City</label>
+              <input type="text" name="city" value="{{data.city}}" />
+            </div>
+
+            <div class="large-2 columns">
+              <label>State</label>
+              <input type="text" name="state" maxlength="2" value="{{data.state}}" />
+            </div>
+
+            <div class="large-5 columns">
+              <label>Zip</label>
+              <input type="text" name="zip" value="{{data.zip}}" />
+            </div>
+
+          </div>
+
+        </div>
+        <div class="large-6 columns">
+
+
+          <div class="upload-container-thumb">
+
+            {{#if data.photo.medium}}
+            <img src="{{data.photo.medium}}" />
+            {{else}}
+            <div class="placeholder">
+            </div>
+            {{/if}}
+
+            <div class="control">
+              <!--[if lte IE 8]>
+              <button disabled>Upload Photo</button><br /><br />
+              <small>* Your browser doesn't support photo uploads. Please upgrade your browser to the latest version of Internet Explorer. Firefox and Google Chrome are also supported.</small>
+              <![endif]-->
+
+              <!--[if !lte IE 8]><!-->
+              <a class="thumb-upload-button"><i class="fi-plus"></i> New Photo</a>
+              <a class="crop-button" href="#crop-image"><i class="fi-crop"></i> Crop Thumbnail</a>
+              <!--<![endif]-->
+            </div>
+
+
+            <div class="thumb-upload-success">New photo added successfully.
+              <br /><br />
+              <small>* Some images take longer to process than others. Don't be alarmed if your changes aren't reflected immediately. Most photos are processed in less than one minute.</small><br /><br />
+            </div>
+            <div class="thumb-upload">
+              <div class="dropzone" id="dropzone"></div>
+              <div class="upload-instructions">* Large images work best (over 500px wide)</div>
+              <img id="upload_button" src="/images/blank.gif" />
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="large-12 columns">
+    			<label>Description</label>
+    			<textarea class="description" name="description">{{data.description}}</textarea>
+
+          <button>Save</button>
+
+        </div>
+      </div>
+
+
+
+		</form>
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+
+  </div>
+</div>

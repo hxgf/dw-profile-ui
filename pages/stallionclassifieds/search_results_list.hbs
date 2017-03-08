@@ -1,0 +1,33 @@
+
+<ul class="search-results-list small-block-grid-4 medium-block-grid-4 large-block-grid-4">
+
+
+{{#each stallions_list}}
+  <li>
+    {{#if ../all_mine}}
+    <a href="{{#if url_title}}/stallion/{{url_title}}{{else}}/edit-listing/{{_id}}{{/if}}"><img src="{{photo.small}}" /></a>
+    <span class="title"><a href="{{#if url_title}}/stallion/{{url_title}}{{else}}/edit-listing/{{_id}}{{/if}}">{{horse_name}}<br />{{slug}}</a></span>
+    {{#if city}}<span class="details">{{city}}{{#if_either country "United States" "Canada"}}, {{state}}{{else}}, {{country}}{{/if_either}}</span>{{/if}}
+    <span class="details">Stud Fee: ${{stud_fee}}</span>
+<!--     <span class="details">Alt Breed: Arabian</span> -->
+    <!-- // relevant data (breed, color, etc) -->
+    {{else}}
+    <a href="/stallion/{{url_title}}"><img src="{{photo.small}}" /></a>
+    <span class="title"><a href="/stallion/{{url_title}}">{{horse_name}}<br />{{slug}}</a></span>
+    {{#if city}}<span class="details">{{city}}{{#if_either country "United States" "Canada"}}, {{state}}{{else}}, {{country}}{{/if_either}}</span>{{/if}}
+    <span class="details">Stud Fee: ${{stud_fee}}</span>
+    <!--     <span class="details">Alt Breed: Arabian</span> -->
+    <!-- // relevant data (breed, color, etc) -->
+
+    {{/if}}
+
+  </li>
+
+{{/each}}
+
+</ul>
+
+<div class="pagination">
+{{#if paginate.previous}}<a href="/stallions/{{paginate.previous_query}}"><i class="foundicon-left-arrow"></i></a>{{/if}}
+{{#if paginate.next}}<a href="/stallions/{{paginate.next_query}}"><i class="foundicon-right-arrow"></i></a>{{/if}}
+</div>

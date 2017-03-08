@@ -1,0 +1,63 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus profile">
+
+
+
+    <div class="row profile-header"> <!-- .ranch-header -->
+
+      <div class="medium-8 columns contact-info">
+        <h2>{{data.screenname}}
+          {{#if can_edit}}<small><a href="/settings">Edit</a></small>{{/if}}
+        </h2>
+        {{#if data.city}}
+        <h4>
+          {{data.city}}, {{data.state}}
+        </h4>
+        {{/if}}
+
+        {{#if data.website_url}}<h5><a href="{{data.website_url}}">{{data.website_url}}</a></h5>{{/if}}
+
+        {{#if can_edit}}
+        <div class="spacer"></div>
+        {{else}}
+        <div class="send-message">
+          <button id="message-link" class="icon-link"><i class="fi-mail"></i> Send Message</button>
+          <div class="message-reply">
+            {{#if global.auth_token}}
+            <textarea name="message" class="reply"></textarea>
+            <button id="message-send" data-recipient="{{data.user_id}}" class="send">Send</button>
+            {{else}}
+              <div class="prompt">
+                Accounts are required to send messages. <a href="/login">Login here</a> if you're already registered. Otherwise, you can <a href="/register">sign up here</a> if you're not. <i>(It's really simple and it only takes a few seconds)</i>
+              </div>
+            {{/if}}
+          </div>
+          <div class="message-sent"></div>
+        </div>
+        {{/if}}
+
+        <div class="description">
+          {{{nltobr data.description}}}
+        </div>
+
+      </div>
+
+
+
+      <div class="medium-4 columns">
+        <img class="profile-photo" src="{{data.avatar.medium}}" />
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+
+  </div>
+</div>

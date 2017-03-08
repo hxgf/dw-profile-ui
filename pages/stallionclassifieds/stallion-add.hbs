@@ -1,0 +1,73 @@
+
+
+
+
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    {{#if global.auth_token}}
+        <div class="header-stallion-upgrade">
+        	<h3>New Stallion Listing &nbsp;&mdash;&nbsp; $75/yr</h3>
+          <h5>Each listing includes one picture, custom description, pedigree chart, and a fact sheet about your stallion.</h5>
+          <!-- <p>Need a little more? Check out these upgrades:</p> -->
+          <!-- <p>Get your listing extra exposure:</p> -->
+        </div>
+
+        <form class="stallion-upgrade" method="post" action="/checkout/prepare">
+        	<ul class="upgrades-list">
+        		<!-- <li>
+        			<label>
+    		    		<input type="checkbox" name="upgrades[]" value="gallery" />
+    		    		<span class="data">
+    		    			<span class="title">Photo Gallery - $10</span>
+    		    			<span class="details">Gallery of up to six pictures</span>
+    		    		</span>
+    		    	</label>
+    		    </li>
+
+            <li>
+              <label>
+                <input type="checkbox" name="upgrades[]" value="videos" />
+                <span class="data">
+                  <span class="title">Videos - $5</span>
+                  <span class="details">Up to four embedded videos from Vimeo or YouTube</span>
+                </span>
+              </label>
+            </li> -->
+
+            <!-- <li>
+              <label>
+                <input type="checkbox" name="upgrades[]" value="featured" />
+                <span class="data">
+                  <span class="title">Featured Listing - $90</span>
+                  <span class="details">Show off your listing on the front page and site sidebar as one of our featured stallions for 90 days.</span>
+                </span>
+              </label>
+            </li> -->
+
+    	    </ul>
+
+          <input type="hidden" name="type" value="stallion-add" />
+          <button>Post new listing</button>
+
+        </form>
+
+
+    {{else}}
+
+      <h3>New Stallion Listing</h3>
+      <h4>Accounts are required to create new listings.</h4>
+
+      <p><a href="/login">Login</a> if you're already registered.</p>
+      <p><a href="/register">Sign up</a> if you're not a member. <i>(It's really simple and it only takes a few seconds)</i></p>
+
+    {{/if}}
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+
+  </div>
+</div>

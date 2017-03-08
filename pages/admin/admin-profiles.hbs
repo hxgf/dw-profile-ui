@@ -1,0 +1,29 @@
+<div class="admin-subnav">
+  <ul>
+    <!-- <li {{#if current_admin_makers}}class="current"{{/if}}><a href="/admin">Maker Submissions</a></li>
+    <li {{#if current_admin_newsletter}}class="current"{{/if}}><a href="/admin/newsletter">Newsletter Subscriptions</a></li> -->
+  </ul>
+</div>
+
+<div class="admin-control">
+  <a href="/profile/edit/new" class="button"><i class="fi-plus"></i> New Profile</a>
+</div>
+
+{{#if profiles}}
+
+<ul class="profiles-list-admin">
+  {{#each profiles}}
+  <li data-id="{{_id}}">
+    <a href="/profile/{{url_title}}">{{title}}</a>
+  </li>
+  {{/each}}
+</ul>
+
+
+{{else}}
+
+<div class="list-empty">
+  No profiles :(
+</div>
+
+{{/if}}

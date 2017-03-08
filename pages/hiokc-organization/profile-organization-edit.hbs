@@ -1,0 +1,299 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus">
+
+    <form class="edit-form edit-profile-organization" action="/profile/save" method="post">
+
+
+      <div class="row">
+        <div class="large-6 columns">
+
+
+          <div class="row large-collapse">
+            <div class="large-12 columns validate validate-profile-title">
+              <label>Name</label>
+              <input type="text" name="title" value="{{data.title}}" data-id="{{data._id}}" data-type="profile-title" />
+              <span></span>
+            </div>
+          </div>
+
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label>Profile Type</label>
+              <select name="profile_type">
+                <option value="organization" {{#is data.profile_type "==" "organization"}}selected{{/is}}>Organization</option>
+                <option value="business" {{#is data.profile_type "==" "business"}}selected{{/is}}>Business</option>
+                <option value="restaurant" {{#is data.profile_type "==" "restaurant"}}selected{{/is}}>Restaurant (Cafe, Bar, etc)</option>
+                <option value="musician" {{#is data.profile_type "==" "musician"}}selected{{/is}}>Musician</option>
+                <option value="artist" {{#is data.profile_type "==" "artist"}}selected{{/is}}>Artist</option>
+                <option value="other" {{#is data.profile_type "==" "other"}}selected{{/is}}>Other</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label>Category</label>
+              <select name="category_ids[]" multiple>
+                {{#each categories}}
+                <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{title}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label>Tags</label>
+              <input type="text" name="tags" value="{{tags}}" />
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <div class="large-6 columns">
+
+
+          <!-- future: background image -->
+
+          <div class="upload-container-thumb">
+
+      			{{#if data.photo.medium}}
+      			<img src="{{data.photo.medium}}{{#if saved}}?v=2{{/if}}" />
+            {{else}}
+            <div class="placeholder">
+            </div>
+      			{{/if}}
+
+              <div class="control">
+                <!--[if lte IE 8]>
+                <button disabled>Upload Photo</button><br /><br />
+                <small>* Your browser doesn't support photo uploads. Please upgrade your browser to the latest version of Internet Explorer. Firefox and Google Chrome are also supported.</small>
+                <![endif]-->
+
+                <!--[if !lte IE 8]><!-->
+                <a class="thumb-upload-button"><i class="fi-plus"></i> New Photo</a>
+                {{#if crop_image}}<a class="crop-button" href="#crop-image"><i class="fi-crop"></i> Crop Thumbnail</a>{{/if}}
+                <!--<![endif]-->
+              </div>
+
+              <div class="thumb-upload-success">New photo added successfully.
+                <br /><br />
+                <small>* Some images take longer to process than others. Don't be alarmed if your changes aren't reflected immediately. Most photos are processed in less than one minute.</small><br /><br />
+              </div>
+              <div class="thumb-upload">
+                <div class="dropzone" id="dropzone"></div>
+                <div class="upload-instructions">* Large images work best (over 500px wide)</div>
+                <!-- <img id="upload_button" src="/images/blank.gif" /> -->
+              </div>
+    			</div>
+
+        </div>
+      </div>
+
+
+<br /><br />
+
+
+
+      <div class="large-6 columns">
+
+
+
+        <div class="row large-collapse">
+          <div class="large-12 columns">
+            <label><i class="fi-web"></i> Website URL <small>ex: <b>http://yourwebsite.com/</b></small></label>
+            <input type="text" name="website_url" value="{{data.website_url}}" />
+          </div>
+        </div>
+
+
+        <div class="row large-collapse">
+          <div class="medium-5 large-5 columns">
+
+            <label><i class="fi-social-facebook"></i> Facebook <br /><small>ex: facebook.com/<b>yourname</b></small></label>
+            <input type="text" name="social_facebook" value="{{data.social.facebook}}" />
+
+          </div>
+          <div class="medium-5 large-5 columns">
+
+            <label><i class="fi-social-twitter"></i> Twitter <br /><small>ex: <b>@yourname</b></small></label>
+            <input type="text" name="social_twitter" value="{{data.social.twitter}}" />
+
+          </div>
+        </div>
+
+
+        <div class="row large-collapse">
+          <div class="medium-5 large-5 columns">
+
+            <label><i class="fi-social-instagram"></i> Instagram <br /><small>ex: <b>@yourname</b></small></label>
+            <input type="text" name="social_instagram" value="{{data.social.instagram}}" />
+
+          </div>
+          <div class="medium-5 large-5 columns">
+
+            <!-- <label><i class="fi-social-tumblr"></i> Tumblr <br /><small>ex: <b>yourname</b>.tumblr.com</small></label>
+            <input type="text" name="social_tumblr" value="{{data.social.tumblr}}" /> -->
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="row large-collapse">
+          <div class="large-12 columns">
+
+
+						<ul class="profile-admin-list">
+							{{#each admins}}
+						  <li data-admin-id="{{_id}}">
+						    <span class="avatar"><a href="/people/{{url_title}}"><img src="{{avatar}}" />{{screenname}}</a></span>
+						      <span><a href="#" data-id="{{_id}}" rel="delete-admin">delete</a></span>
+						      <input type="hidden" name="admin_ids[]" value="{{_id}}" />
+						    </span>
+						  </li>
+						  {{/each}}
+						</ul>
+
+
+            <label>Enter the screen name of the user you want to add as an admin <small>(they'll have to make an account if they don't already have one)</small></label>
+            <input type="text" name="admin_add" />
+						<a href="#" rel="admin-add">Add Admin</a>
+
+						<small>* admins can send/receive messages for this profile</small>
+
+
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+      <div class="row">
+        <div class="large-6 columns">
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label>Neighborhood(s)</label>
+              <select name="neighborhood_ids[]" multiple>
+                {{#each neighborhoods}}
+                <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{title}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label><input name="location_mobile" type="checkbox" {{#if data.location_mobile}}checked{{/if}}> This is a mobile business (food truck, pop-up shop, etc)</label>
+            </div>
+          </div>
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+              <label>Address</label>
+              <input type="text" name="address" value="{{data.address}}" />
+            </div>
+          </div>
+          <div class="row large-collapse">
+            <div class="large-8 columns">
+              <label>City</label>
+              <input type="text" name="city" value="{{data.city}}" />
+            </div>
+            <div class="large-4 columns">
+              <label>Zip</label>
+              <input type="text" name="zip" value="{{data.zip}}" />
+            </div>
+          </div>
+          <div class="row large-collapse">
+            <div class="large-8 columns">
+              <label>Phone</label>
+              <input type="text" name="phone" value="{{data.phone}}" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+<br /><br />
+
+
+
+
+
+      <div class="row large-uncollapse">
+        <div class="large-12 columns">
+          <label>Bio</label>
+          <textarea class="bio" name="bio">{{data.bio}}</textarea>
+        </div>
+      </div>
+
+
+
+
+      <!-- future: type-specific stuff (attach songs, videos, photos, menus, etc) -->
+
+
+          <input type="hidden" name="id" value="{{data._id}}" />
+
+
+					{{#is data._id "!=" "new"}}
+          <!-- <a href="#" rel="delete-profile" class="text-link" data-type="profile" data-id="{{data._id}}"><i class="fi-x"></i> Delete Profile</a> -->
+          {{/is}}
+
+
+            {{#if is_admin}}
+
+					{{#is data._id "!=" "new"}}
+
+      <div class="row large-uncollapse">
+        <div class="large-12 columns">
+            <label>Profile Status</label>
+            <select name="approved">
+              <option value="true" {{#if approved}}selected{{/if}}>Approved</option>
+              <option value="false" {{#unless approved}}selected{{/unless}}>Disapproved</option>
+            </select>
+        </div>
+      </div>
+          {{/is}}
+
+					<label><input type="checkbox" name="admin_owned" value="yes" {{#if admin_owned}}checked="checked"{{/if}} /> Associate this profile with my user account</label>
+
+            {{/if}}
+
+
+    </form>
+
+
+    <div class="row edit-save">
+      <div class="large-12 columns">
+        <button class="validate-button">Save Profile</button>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> sidebar}}
+  </div>
+</div>
+

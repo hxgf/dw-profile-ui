@@ -1,0 +1,224 @@
+{{#if can_edit}}
+
+<form class="edit-form maker-form edit-profile" action="/makers/edit-profile/process" method="post">
+
+    <div class="row">
+      <div class="medium-6 large-6 columns">
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+
+              <label>Public/Business Name</label>
+              <input type="text" name="public_name" value="{{data.public_name}}" />
+
+            </div>
+          </div>
+
+          <div class="row large-collapse">
+            <div class="large-12 columns">
+
+              {{!-- <label>Category</label>
+              <select class="categories-list" name="category_ids[]" multiple>
+                {{#each categories}}
+                <option value="{{_id}}" {{#if selected}}selected{{/if}}>{{title}}</option>
+                {{/each}}
+              </select> --}}
+
+              <label>Focus &nbsp;<small class="inline">ex: <b>jewelry, clothing, decor</b></small></label>
+              <input type="text" name="category" value="{{data.category}}" />
+
+            </div>
+
+          </div>
+
+<br />
+
+
+          <div class="row large-collapse">
+            <div class="medium-6 large-6 columns">
+              <label>City</label>
+              <input type="text" name="city" value="{{data.city}}" />
+            </div>
+            <div class="medium-6 large-6 columns">
+              <label>Zip Code</label>
+              <input type="text" name="zip" value="{{data.zip}}" />
+            </div>
+          </div>
+
+
+<br />
+
+          <div class="row large-collapse">
+            <div class="medium-6 large-6 columns">
+
+              <label>Website <small>ex: <b>yourwebsite.com</b></small></label>
+              <input type="text" name="website_url" value="{{data.website_url}}" />
+
+            </div>
+            <div class="medium-6 large-6 columns">
+
+              <label>Facebook <small>ex: facebook.com/<b>yourname</b></small></label>
+              <input type="text" name="social_facebook" value="{{data.social_facebook}}" />
+
+            </div>
+          </div>
+
+
+          <div class="row large-collapse">
+            <div class="medium-6 large-6 columns">
+
+              <label>Twitter <small>ex: <b>@yourname</b></small></label>
+              <input type="text" name="social_twitter" value="{{data.social_twitter}}" />
+
+
+            </div>
+            <div class="medium-6 large-6 columns">
+
+              <label>Instagram <small>ex: <b>@yourname</b></small></label>
+              <input type="text" name="social_instagram" value="{{data.social_instagram}}" />
+
+            </div>
+          </div>
+
+          <div class="row large-collapse">
+            <div class="medium-6 large-6 columns">
+
+              <label>Etsy <small>ex: etsy.com/shop/<b>yourname</b></small></label>
+              <input type="text" name="social_etsy" value="{{data.social_etsy}}" />
+
+            </div>
+            <div class="medium-6 large-6 columns">
+
+
+            </div>
+          </div>
+
+
+
+
+
+
+
+      </div>
+      <div class="medium-6 large-6 columns">
+
+
+        <div class="upload-container-thumb">
+
+          {{#if data.photo.medium}}
+          <img class="preview" src="{{data.photo.medium}}?v={{cache_cleaner}}" />
+          {{else}}
+          <div class="placeholder">
+          </div>
+          {{/if}}
+
+            <div class="control">
+              <!--[if lte IE 8]>
+              <button disabled>Upload Photo</button><br /><br />
+              <small>* Your browser doesn't support photo uploads. Please upgrade your browser to the latest version of Internet Explorer. Firefox and Google Chrome are also supported.</small>
+              <![endif]-->
+
+              <!--[if !lte IE 8]><!-->
+              <a class="thumb-upload-button"><i class="fi-plus"></i> New Photo</a>
+              <a class="crop-button" href="#crop-image"><i class="fi-crop"></i> Crop Thumbnail</a>
+              <div class="upload-instructions">* Large square photos work best (over 500px)</div>
+              <!--<![endif]-->
+            </div>
+
+            <div class="thumb-upload-success">New photo added successfully.
+              <span>Note: some images take longer to process than others. Don't be alarmed if your changes aren't reflected immediately.<br /><br /> Most photos are processed in less than one minute.</span><br /><br />
+            </div>
+            <div class="thumb-upload">
+              <div class="dropzone" id="dropzone"></div>
+              <div class="upload-instructions">* Large square photos work best (over 500px)</div>
+              <img id="upload_button" src="/images/blank.gif" />
+            </div>
+        </div>
+
+
+
+
+
+
+
+          <fieldset>
+            <legend>Account Info <span>* does not appear on your public profile</span></legend>
+
+            <div class="row large-collapse">
+              <div class="medium-6 large-6 columns">
+
+                <label>First Name</label>
+                <input type="text" name="first_name" value="{{data.first_name}}" />
+
+              </div>
+              <div class="medium-6 large-6 columns">
+
+                <label>Last Name</label>
+                <input type="text" name="last_name" value="{{data.last_name}}" />
+
+              </div>
+            </div>
+
+
+            <div class="row large-collapse">
+              <div class="large-12 columns">
+
+                <div class="validate-email validate required">
+                  <label>Email Address</label>
+                  <input type="text" name="email" data-type="email" value="{{data.email}}" />
+                  <span></span>
+                </div>
+
+                <label>New Password <small>(no change if blank)</small></label>
+                <input type="password" name="password" />
+
+
+
+
+              </div>
+            </div>
+
+          </fieldset>
+
+
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row large-uncollapse">
+      <div class="large-12 columns">
+        <label>Bio/About</label>
+        <textarea class="description" name="bio">{{data.bio}}</textarea>
+      </div>
+    </div>
+
+
+
+    <br />
+    <div class="row large-uncollapse">
+      <div class="large-12 columns">
+        <label>Maker Profile</label>
+        <label class="check-label"><input type="radio" name="visible" value="true" {{#is data.visible '==' true}}checked{{/is}} />&nbsp; Active</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label class="check-label"><input type="radio" name="visible" value="false" {{#is data.visible '==' false}}checked{{/is}} />&nbsp; Inactive</label>
+      </div>
+    </div>
+
+
+
+    <div class="row edit-save">
+      <div class="large-12 columns">
+        <input type="hidden" name="_id" value="{{data._id}}" />
+        <button id="save">Save Profile</button>
+
+          {{!-- <a href="#" rel="delete-profile" class="text-link"><i class="fi-x"></i> Delete Profile</a> --}}
+
+      </div>
+    </div>
+
+</form>
+
+
+{{/if}}

@@ -1,0 +1,320 @@
+
+<div class="row">
+  <div class="medium-10 columns content-focus stallion-detail">
+
+  {{#if can_edit}}
+    {{#unless ranch.title}}
+    <div class="callout panel">
+      <h5>Ranch Profile</h5>
+      <p>Show off all your stallions in one place with a photo and custom information about your ranch. <br /><a href="/edit-ranch/{{ranch._id}}">Create your profile now!</a></p>
+    </div>
+    {{/unless}}
+  {{/if}}
+
+    <div class="row">
+      <div class="medium-12 columns">
+        <h2>{{data.horse_name}} - {{data.slug}} Stallion
+          {{#if can_edit_admin}}
+          <small><a href="/edit-listing/{{data._id}}">Edit Listing</a></small>
+          {{else}}
+            {{#if can_edit}}<small><a href="/edit-listing/{{data._id}}">Edit Listing</a></small>{{/if}}
+          {{/if}}</h2>
+
+        {{#if ranch.title}}<h4>Available from <a href="/ranch/{{ranch.url_title}}">{{ranch.title}}</a></h4>{{/if}}
+        {{#if can_edit}}
+        <div class="spacer"></div>
+        {{else}}
+        <div class="send-message">
+          <button id="message-link" class="icon-link"><i class="fi-mail"></i> Send Message</button>
+          <div class="message-reply">
+
+            {{#if global.auth_token}}
+            <textarea name="message" class="reply"></textarea>
+            <button id="message-send" data-recipient="{{data.user_id}}" class="send">Send</button>
+            {{else}}
+              <div class="prompt">
+                Accounts are required to send messages. <a href="/login">Login here</a> if you're already registered. Otherwise, you can <a href="/register">sign up here</a> if you're not. <i>(It's really simple and it only takes a few seconds)</i>
+              </div>
+            {{/if}}
+          </div>
+          <div class="message-sent"></div>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+
+
+  	<div class="row">
+
+
+	  	<div class="medium-6 columns">
+
+				<div class="hr"></div>
+
+				<div class="breeding-info">
+					<div>
+						<label>Stud Fee:</label><span>
+              {{#if data.stud_fee}}
+              ${{data.stud_fee}}
+              {{else}}---{{/if}}</span>
+					</div>
+					<div>
+						<label>Booking Fee:</label><span>
+              {{#if data.booking_fee}}
+              ${{data.booking_fee}}
+              {{#if data.booking_included}}
+              <small>* included in stud fee</small>
+              {{/if}}
+              {{else}}---{{/if}}</span>
+					</div>
+
+          <div>
+            <label>Availability:</label><span>
+              {{#if data.availability_start}}
+              {{format_date_breeding data.availability_start}} - {{format_date_breeding data.availability_stop}}
+              {{else}}---{{/if}}</span>
+          </div>
+          <div>
+            <label>Location:</label><span>
+            {{#if data.city}}
+            {{data.city}}{{#if_either data.country "United States" "Canada"}}, {{data.state}}{{else}}, {{data.country}}{{/if_either}}
+             {{#if data.zip}}({{data.zip}}){{/if}}
+            {{else}}---{{/if}}</span>
+          </div>
+
+					<div>
+						<label>Breeding Options:</label>
+            {{#if data.breeding_options}}
+						<ul>
+              {{#each data.breeding_options}}
+							<li>{{this}}</li>
+              {{/each}}
+						</ul>
+            {{else}}<span>---</span>{{/if}}
+					</div>
+          <div>
+            <label>Guarantees:</label>
+            <ul>
+              {{#if data.guarantees}}
+              {{#each data.guarantees}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+            {{else}}<span>---</span>{{/if}}
+          </div>
+
+				</div>
+
+				<div class="hr"></div>
+
+				<div class="fact-sheet">
+					<div>
+						<label>Registered Name:</label><span>
+            {{#if data.horse_name}}
+            {{data.horse_name}}
+            {{else}}---{{/if}}
+            </span>
+					</div>
+          <div>
+            <label>Breed:</label><span>{{data.breed_primary}}</span>
+          </div>
+          <div>
+            <label>Foal Date:</label><span>
+              {{#if data.foal_date}}
+              {{format_date_birthday data.foal_date}}
+              {{else}}---{{/if}}
+              </span>
+          </div>
+
+          {{#if global.colors}}
+          <div>
+            <label>Color:</label><span>
+              {{#if data.color}}
+              {{data.color}}
+              {{else}}---{{/if}}</span>
+          </div>
+          {{/if}}
+
+<!--
+					<div>
+						<label>Secondary Breed:</label><span>{{data.breed_secondary}}</span>
+					</div>
+
+					<div>
+						<label>Homozygous Color:</label><span>{{data.homozygous_color}}</span>
+					</div>
+-->
+					<div>
+						<label>Height:</label><span>
+              {{#if data.height}}
+              {{data.height}} h
+              {{else}}---{{/if}}
+              </span>
+					</div>
+					<div>
+						<label>Weight:</label><span>
+              {{#if data.weight}}
+              {{data.weight}} lbs
+              {{else}}---{{/if}}
+              </span>
+					</div>
+
+				</div>
+
+				<div class="hr"></div>
+	  	</div>
+
+
+	  	<div class="medium-6 columns">
+
+        <!-- // FEATURED badge -->
+	  		<img class="listing-photo" src="{{data.photo.medium}}" />
+	  	</div>
+
+	  </div>
+
+
+
+  	<div class="row">
+	  	<div class="medium-12 columns description">
+        {{#if data.tag_line}}<h5>{{data.tag_line}}</h5>{{/if}}
+        {{{nl2br data.description}}}
+			</div>
+		</div>
+
+
+<!-- // lightbox gallery -->
+
+		<!-- <ul class="stallion-detail-gallery small-block-grid-3 medium-block-grid-6 large-block-grid-6">
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+
+			<li>
+				<a href="/stallion"><img src="/images/stallion-thumb-placeholder.png" /></a>
+			</li>
+		</ul> -->
+
+
+<!-- // embedded videos -->
+
+<!--   	<div class="row">
+
+	  	<div class="medium-6 columns detail-video">
+				<iframe src="//www.youtube.com/embed/7zlg-kOLNvg" frameborder="0" allowfullscreen></iframe>
+			</div>
+
+	  	<div class="medium-6 columns detail-video">
+				<iframe src="//player.vimeo.com/video/36830276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+			</div>
+
+		</div> -->
+
+
+
+
+
+  {{#if data.pedigree.sire_1}}
+  	<table class="pedigree-detail">
+  		<tr>
+  		    <td></td>
+  		    <td></td>
+  		    <td class="sire"><span>{{data.pedigree.sire_4}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td></td>
+  		    <td class="sire v"><span>{{data.pedigree.sire_2}}</span></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td class="v"></td>
+  		    <td class="dam"><span>{{data.pedigree.dam_4}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td class="sire v"><span>{{data.pedigree.sire_1}}</span></td>
+  		    <td></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td></td>
+  		    <td class="sire"><span>{{data.pedigree.sire_5}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td class="dam v"><span>{{data.pedigree.dam_2}}</span></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td></td>
+  		    <td class="v"></td>
+  		    <td class="dam"><span>{{data.pedigree.dam_5}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td colspan="3">&nbsp;</td>
+  		</tr>
+  		<tr>
+  		    <td></td>
+  		    <td></td>
+  		    <td class="sire"><span>{{data.pedigree.sire_6}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td></td>
+  		    <td class="sire v"><span>{{data.pedigree.sire_3}}</span></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td class="v"></td>
+  		    <td class="dam"><span>{{data.pedigree.dam_6}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td class="dam v"><span>{{data.pedigree.dam_1}}</span></td>
+  		    <td></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td></td>
+  		    <td class="sire"><span>{{data.pedigree.sire_7}}</span></td>
+  		</tr>
+  		<tr>
+  		    <td class="v"></td>
+  		    <td class="dam v"><span>{{data.pedigree.dam_3}}</span></td>
+  		    <td></td>
+  		</tr>
+  		<tr>
+  		    <td></td>
+  		    <td class="v"></td>
+  		    <td class="dam"><span>{{data.pedigree.dam_7}}</span></td>
+  		</tr>
+  	</table>
+  {{/if}}
+
+
+
+  </div>
+  <div class="medium-2 columns sidebar">
+    {{> ads}}
+    <!-- // if owner, "don't want ads on your page? GO PRO!" (link to upgrades) -->
+  </div>
+</div>

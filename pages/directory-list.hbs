@@ -1,0 +1,33 @@
+
+    {{#if profiles}}
+    <ul class="profiles-list small-block-grid-2">
+      {{#each profiles}}
+      <li>
+        <div class="profile-block">
+          <a href="/profile/{{url_title}}"><img src="{{photo.small}}" /></a>
+          <span class="data">
+            <h3><a href="/profile/{{url_title}}">{{title}}</a></h3>
+            <h4>{{address}}</h4>
+            <h5>{{#each neighborhoods_list}}{{#unless first}}, {{/unless}}<a href="/neighborhoods/{{url_title}}">{{title}}</a>{{/each}} &nbsp;</h5>
+            <h5>{{#each tags_list}}{{#unless first}}, {{/unless}}<a href="/tags/{{url_title}}">{{title}}</a>{{/each}}</h5>
+          </span>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+    <div class="no-results">
+      No profiles :(
+    </div>
+    {{/if}}
+
+
+
+
+    <div class="pagination">
+    {{#if paginate.previous}}<a href="/directory/search/{{paginate.previous_query}}">&larr; Previous page</a>{{/if}}
+    {{#if paginate.next}}<a href="/directory/search/{{paginate.next_query}}">Next page &rarr;</a>{{/if}}
+    </div>
+
+
+

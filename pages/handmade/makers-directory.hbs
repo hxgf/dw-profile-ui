@@ -1,0 +1,17 @@
+{{!-- {{#each categories}}
+<a href="/makers/category/{{title_url}}">{{title}}</a><br />
+{{/each}}
+<hr />
+{{#each cities}}
+<a href="/makers/city/{{title_url}}">{{title}}</a><br />
+{{/each}}
+<hr /> --}}
+
+<ul class="directory-list small-block-grid-3 medium-block-grid-4 large-block-grid-4">
+  {{#each profiles}}
+  <li>
+			<a href="/makers/{{this.url_title}}"><img src="{{this.photo.small}}" class="thumb" /></a>
+      <div class="data"><a href="/makers/{{this.url_title}}">{{this.public_name}}</a></div>
+  </li>
+  {{/each}}
+</ul>
